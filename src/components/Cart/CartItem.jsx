@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import s from "./CartItem.module.css";
+import defaultImg from "../../assets/default.jpg";
 
 const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
   const handleQuantityChange = (e) => {
@@ -12,21 +13,23 @@ const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
   return (
     <div className={s.cartWrapper}>
       <div className={s.cartItem}>
-        <div className={s.imageWrapper}>
-          <img src={item.imageUrl} alt={item.name} />
+        <div className={s.cartImageWrapper}>
+          {/* src={item.cartImageUrl}  */}
+          <img src={defaultImg} alt={item.name} />
         </div>
-        <div className={s.infoContainer}>
+        <div className={s.cartInfoContainer}>
           <h2>{item.name}</h2>
           <p>Price: {item.price}</p>
-          <div>
+          <div className={s.cartQuantity}>
             <input
               type="number"
               value={item.quantity}
               onChange={handleQuantityChange}
+              className={s.cartInput}
             />
             <button
               onClick={() => handleRemoveItem(item.id)}
-              className={s.buttonDelete}
+              className={s.cartButtonDelete}
             >
               delete
             </button>

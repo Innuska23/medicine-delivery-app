@@ -12,37 +12,52 @@
   list-style: none;
   flex-wrap: wrap;
   padding: 10px;
-  border: 1px solid gray;
+  border: 3px solid var(--input-color);
   border-radius: 10px;
 }
 
-.imageWrapper {
+.cartImageWrapper {
   margin-right: 30px;
 }
 
-.imageWrapper img {
+.cartImageWrapper img {
   max-width: 100px;
   height: auto;
 }
 
-.infoContainer {
+.cartInfoContainer {
   display: flex;
   gap: 10px;
   flex-direction: column;
   justify-content: center;
 }
-
-.buttonDelete {
-  background-color: rgb(187, 45, 59);
-  color: white;
+.cartQuantity {
+  display: flex;
+  gap: 10px;
+}
+.cartButtonDelete {
+  background-color: var(--buttonDelete-color);
+  color: var(--color-white);
   outline: none;
   cursor: pointer;
   padding: 5px 5px;
-  border: 1px solid;
+  border: 3px solid var(--buttonDelete-color);
   border-radius: 5px;
 }
 
-.buttonDelete:hover {
-  background-color: rgb(220, 53, 69);
-  box-shadow: rgb(187, 45, 59);
+.cartButtonDelete:hover {
+  background-color: var(--buttonDelete-color-hover);
+  border: 3px solid var(--buttonDelete-color-hover);
+}
+
+.cartInput {
+  border: 3px solid var(--input-color);
+  border-radius: 8px;
+  padding: 5px;
+  outline: none;
+  background-color: transparent;
+}
+
+.cartInput:focus {
+  border: 3px solid var(--input-color-focus);
 }

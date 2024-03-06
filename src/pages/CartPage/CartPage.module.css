@@ -7,7 +7,7 @@
 
 .cartElement {
   display: flex;
-  /* justify-content: space-between; */
+  gap: 30px;
 }
 
 .totalPrice {
@@ -18,14 +18,16 @@
 }
 
 .totalPriceText {
-  margin-right: 50px;
+  font-weight: var(--fw-600);
+  font-size: var(--fs-22);
+  margin-right: 80px;
 }
 
 .buttonSubmit {
-  background-color: rgb(25, 135, 84);
-  color: white;
+  background-color: var(--buttonSubmit-color);
+  color: var(--color-white);
   outline: none;
-  font-size: 16px;
+  font-size: var(--fs-20);
   cursor: pointer;
   padding: 5px 5px;
   border: 1px solid;
@@ -33,6 +35,5 @@
 }
 
 .buttonSubmit:hover {
-  background-color: rgb(21, 115, 71);
-  box-shadow: rgb(21, 115, 71) 0px 0px 30px 0px;
+  background-color: var(--buttonSubmit-color-hover);
 }

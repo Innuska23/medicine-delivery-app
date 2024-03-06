@@ -1,17 +1,19 @@
 import PropTypes from "prop-types";
 import styles from "./ShopCard.module.css";
+import defaultimg from "../../../assets/default.jpg";
 
 const ShopCard = ({ title, onAddToCart }) => {
   return (
-    <div className={styles.card}>
-      <div className={styles.imageContainer}>
-        <div className={styles.image} />
+    <li className={styles.card}>
+      <div className={styles.cardImageContainer}>
+        <img className={styles.cardImage} src={defaultimg} alt={title} />
       </div>
-      <h3 className={styles.title}>{title}</h3>
-      <button className={styles.button} onClick={onAddToCart}>
+      <h3 className={styles.cardTitle}>{title}</h3>
+      <p>Price: ₴</p>
+      <button className={styles.cardButton} onClick={onAddToCart}>
         Add to Cart
       </button>
-    </div>
+    </li>
   );
 };
 

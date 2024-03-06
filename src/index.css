@@ -1,8 +1,31 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  /* line-height: 1.5; */
   font-weight: 400;
   color: #242424;
+  background-color: #f5f5f5;
+  --input-color: #d3d3d3;
+  --input-color-focus: #808080;
+  --buttonDelete-color: rgb(187, 45, 59);
+  --buttonDelete-color-hover: rgb(220, 53, 69);
+  --buttonSubmit-color: rgb(25, 135, 84);
+  --buttonSubmit-color-hover: rgb(21, 115, 71);
+  --background-header: linear-gradient(0.25turn, #2a6f8c, #ebf8e1, #d47209);
+  --border-color: #909090;
+  --color-red: red;
+  --color-blue: blue;
+  --color-white: white;
+  --color-green: green;
+  --color-gray: gray;
+  --color-box-shadow: rgba(0, 0, 0, 0.1);
+  --fw-600: 600;
+  --fs-18: 18px;
+  --fs-24: 24px;
+  --fs-20: 20px;
+  --fs-22: 22px;
+  --width-400: 400px;
+  --width-300: 300px;
+  --width-810: 810px;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -100,6 +123,7 @@ video {
   border: 0;
   vertical-align: baseline;
   font-family: "Manrope", sans-serif;
+  list-style: none;
   /* color: black; */
 }
 

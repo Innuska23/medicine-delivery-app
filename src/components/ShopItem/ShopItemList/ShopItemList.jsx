@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import ShopCard from "../ShopCard/ShopCard";
-import styles from "./ShopItemList.module.css";
+// import styles from "./ShopItemList.module.css";
 
 const ShopItemList = ({ products }) => {
   return (
-    <div className={styles.grid}>
+    <div>
       {products.map((product) => (
         <ShopCard
           key={product.id}
@@ -12,9 +12,7 @@ const ShopItemList = ({ products }) => {
           onAddToCart={() => console.log(`Added ${product.title} to cart`)}
         />
       ))}
-      <div className={styles.note}>
-        The item should be added to the Shopping Cart
-      </div>
+      <div>The item should be added to the Shopping Cart</div>
     </div>
   );
 };

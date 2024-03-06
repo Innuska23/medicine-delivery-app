@@ -3,18 +3,42 @@
   box-sizing: border-box;
   width: 50%;
   flex-grow: 1;
+  height: 480px;
+  padding: 15px 30px;
+  border: 3px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 10px;
 }
 
-.label {
+.formLabel {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: var(--fw-600);
+  font-size: var(--fs-18);
 }
 
-.input {
+.formInput {
   display: block;
+  width: var(--width-400);
+  height: 40px;
   margin-bottom: 15px;
+  border: 3px solid var(--input-color);
+  border-radius: 8px;
+  padding: 5px;
+  outline: none;
+  background-color: transparent;
 }
 
-.error {
-  color: red;
+.formInput:focus {
+  border: 3px solid var(--input-color-focus);
+}
+
+.formError {
+  color: var(--color-red);
+  margin-bottom: 10px;
 }
