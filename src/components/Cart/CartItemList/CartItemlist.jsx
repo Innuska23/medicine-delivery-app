@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../CartItem";
-import s from "./CarItemList.module.css";
+import s from "./CartItemList.module.css";
 import { selectedOrderItems } from "../../../redux/selectors/orderActions";
 import {
   removeOrder,
@@ -37,8 +37,7 @@ const CartItemList = () => {
       ))}
       {cartItems.length === 0 && (
         <p>
-          {" "}
-          Choose medicine in{" "}
+          Choose medicine in
           <NavLink to="/shop" className={s.link}>
             Shop
           </NavLink>

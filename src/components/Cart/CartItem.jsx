@@ -20,7 +20,7 @@ const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
         </div>
         <div className={s.cartInfoContainer}>
           <h2>{item.title}</h2>
-          <p>Price: {item.price}</p>
+          <p>Price: {item.price} ₴</p>
           <div className={s.cartQuantity}>
             <input
               type="number"
