@@ -1,5 +1,31 @@
 # Medicine Delivery app
 
+## Installation
+
+Clone the repository:
+
+```
+git clone https://github.com/Innuska23/medicine-delivery-app
+```
+
+Navigate to the project folder:
+
+```
+cd medicine-delivery-app
+```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Running:
+
+```
+npm start dev
+```
+
 ## Description:
 
 The Medicine Delivery app should consist of two pages:
