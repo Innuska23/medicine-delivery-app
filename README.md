@@ -23,7 +23,7 @@ npm install
 Running:
 
 ```
-npm start dev
+npm run dev
 ```
 
 ## Description:

@@ -37,7 +37,7 @@ const CartItemList = () => {
       ))}
       {cartItems.length === 0 && (
         <p>
-          Choose medicine in
+          Choose medicine in{" "}
           <NavLink to="/shop" className={s.link}>
             Shop
           </NavLink>

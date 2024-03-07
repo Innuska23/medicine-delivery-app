@@ -24,6 +24,7 @@ const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
           <div className={s.cartQuantity}>
             <input
               type="number"
+              min="1"
               value={item.quantity}
               onChange={handleQuantityChange}
               className={s.cartInput}
