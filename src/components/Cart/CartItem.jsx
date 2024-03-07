@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
-import s from "./CartItem.module.css";
+
 import defaultImg from "../../assets/default.jpg";
+
+import s from "./CartItem.module.css";
 
 const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value);
-    if (!isNaN(newQuantity)) {
-      handleUpdateQuantity(item.id, newQuantity);
+    if (!isNaN(newQuantity) && newQuantity >= 0) {
+      handleUpdateQuantity(item._id, newQuantity);
     }
   };
 
@@ -14,11 +16,10 @@ const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
     <div className={s.cartWrapper}>
       <div className={s.cartItem}>
         <div className={s.cartImageWrapper}>
-          {/* src={item.cartImageUrl}  */}
-          <img src={defaultImg} alt={item.name} />
+          <img src={item.imgSrc || defaultImg} alt={item.name} />
         </div>
         <div className={s.cartInfoContainer}>
-          <h2>{item.name}</h2>
+          <h2>{item.title}</h2>
           <p>Price: {item.price}</p>
           <div className={s.cartQuantity}>
             <input
@@ -28,7 +29,7 @@ const CartItem = ({ item, handleRemoveItem, handleUpdateQuantity }) => {
               className={s.cartInput}
             />
             <button
-              onClick={() => handleRemoveItem(item.id)}
+              onClick={() => handleRemoveItem(item._id)}
               className={s.cartButtonDelete}
             >
               delete

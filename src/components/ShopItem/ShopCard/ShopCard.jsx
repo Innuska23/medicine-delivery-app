@@ -1,17 +1,33 @@
 import PropTypes from "prop-types";
-import styles from "./ShopCard.module.css";
-import defaultimg from "../../../assets/default.jpg";
+import { useSelector } from "react-redux";
 
-const ShopCard = ({ title, onAddToCart }) => {
+import defaultimg from "../../../assets/default.jpg";
+import { selectedIsInOrderListProduct } from "../../../redux/selectors/orderActions";
+
+import s from "./ShopCard.module.css";
+
+const ShopCard = ({ id, title, onAddToCart, imageSrc, price }) => {
+  const isInOrderList = useSelector((state) =>
+    selectedIsInOrderListProduct(state, id)
+  );
+
+  const handleAddToCart = () => {
+    onAddToCart();
+  };
+
   return (
-    <li className={styles.card}>
-      <div className={styles.cardImageContainer}>
-        <img className={styles.cardImage} src={defaultimg} alt={title} />
+    <li className={s.card}>
+      <div className={s.cardImageContainer}>
+        <img className={s.cardImage} src={imageSrc || defaultimg} alt={title} />
       </div>
-      <h3 className={styles.cardTitle}>{title}</h3>
-      <p>Price: ₴</p>
-      <button className={styles.cardButton} onClick={onAddToCart}>
-        Add to Cart
+      <h3 className={s.cardTitle}>{title}</h3>
+      <p>Price: {price} ₴</p>
+      <button
+        className={s.cardButton}
+        onClick={handleAddToCart}
+        disabled={isInOrderList}
+      >
+        {isInOrderList ? "In cart" : "Add to Cart"}
       </button>
     </li>
   );
@@ -19,7 +35,10 @@ const ShopCard = ({ title, onAddToCart }) => {
 
 ShopCard.propTypes = {
   title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
   onAddToCart: PropTypes.func.isRequired,
+  price: PropTypes.number,
 };
 
 export default ShopCard;

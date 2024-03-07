@@ -1,0 +1,6 @@
+.shopItemListText {
+  display: flex;
+  font-weight: var(--fw-600);
+  align-items: center;
+  justify-content: center;
+}

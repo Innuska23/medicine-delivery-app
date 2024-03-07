@@ -9,23 +9,38 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addOrder: (state, action) => {
-      state.orderItems.push(action.payload);
+      const product = state.orderItems.find(
+        ({ _id }) => action.payload._id === _id
+      );
+
+      if (!product) {
+        state.orderItems.push({ ...action.payload, quantity: 1 });
+      }
     },
+
     removeOrder: (state, action) => {
       state.orderItems = state.orderItems.filter(
-        (item) => item.id !== action.payload.id
+        (item) => item._id !== action.payload
       );
     },
     updateQuantity: (state, action) => {
       const { id, quantity } = action.payload;
-      const itemToUpdate = state.orderItems.find((item) => item.id === id);
-      if (itemToUpdate) {
-        itemToUpdate.quantity = quantity;
-      }
+
+      state.orderItems = state.orderItems.map((item) => {
+        if (item._id === id) {
+          return { ...item, quantity };
+        }
+        return item;
+      });
+    },
+
+    resetOrder: (state) => {
+      state.orderItems = [];
     },
   },
 });
 
-export const { addOrder, removeOrder, updateQuantity } = orderSlice.actions;
+export const { addOrder, removeOrder, updateQuantity, resetOrder } =
+  orderSlice.actions;
 
 export default orderSlice.reducer;

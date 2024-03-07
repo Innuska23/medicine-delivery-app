@@ -1,12 +1,14 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
+
+import { useShopListQuery } from "../../redux/api/shopApi";
 import ShopItemList from "./ShopItemList/ShopItemList";
 import styles from "./ShopComponent.module.css";
 
-const ShopComponent = ({ products }) => {
-  const [selectedShopIndex, setSelectedShopIndex] = useState(null); // Створюємо стейт для зберігання індексу обраного магазину
+import Loader from "../../components/Loader/Loader";
 
-  const shops = ["Drugs 24", "Pharmacy", "", "", ""];
+const ShopComponent = () => {
+  const [selectedShopIndex, setSelectedShopIndex] = useState(null);
+  const { data: shops, isLoading: shopsLoading } = useShopListQuery();
 
   const handleClickShop = (index) => {
     setSelectedShopIndex(index);
@@ -17,32 +19,30 @@ const ShopComponent = ({ products }) => {
       <div className={styles.shopComponentContainer}>
         <div className={styles.shopComponentLeftPanel}>
           <h2 className={styles.shopComponentTitle}>Shops:</h2>
-          <ul className={styles.shopComponentShopList}>
-            {shops.map((shop, index) => (
-              <li
-                key={index}
-                className={`${styles.shopComponentShopItem} ${
-                  selectedShopIndex === index ? styles.active : ""
-                }`}
-                onClick={() => handleClickShop(index)}
-              >
-                {shop || "(Empty)"}
-              </li>
-            ))}
-          </ul>
+          {shopsLoading ? (
+            <Loader />
+          ) : (
+            <ul className={styles.shopComponentShopList}>
+              {shops?.map((shop) => (
+                <li
+                  key={shop?._id}
+                  className={`${styles.shopComponentShopItem} ${
+                    selectedShopIndex === shop?._id ? styles.active : ""
+                  }`}
+                  onClick={() => handleClickShop(shop?._id)}
+                >
+                  {shop?.title || "(Empty)"}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className={styles.shopComponentRightPanel}>
-        {selectedShopIndex !== null && products.length > 0 && (
-          <ShopItemList products={products} />
-        )}
+        {selectedShopIndex && <ShopItemList selectedShop={selectedShopIndex} />}
       </div>
     </div>
   );
-};
-
-ShopComponent.propTypes = {
-  products: PropTypes.array,
 };
 
 export default ShopComponent;

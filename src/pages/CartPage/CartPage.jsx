@@ -1,74 +1,47 @@
-import { useState, useEffect, useId } from "react";
+import { useState, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import CartForm from "../../components/Cart/CartForm/CartForm";
 import CartItemList from "../../components/Cart/CartItemList/CartItemlist";
+import {
+  selectedOrderItems,
+  selectedOrderTotalPrice,
+} from "../../redux/selectors/orderActions";
+import { useCreateOrderMutation } from "../../redux/api/orderApi";
+import { resetOrder } from "../../redux/reducers/orderReducer";
+import Loader from "../../components/Loader/Loader";
+
 import s from "./CartPage.module.css";
-import defaultimg from "../../assets/default.jpg";
 
 const CartPage = () => {
   const formId = useId();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-    {
-      id: 2,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-    {
-      id: 3,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-  ]);
+  const dispatch = useDispatch();
+  const totalPrice = useSelector(selectedOrderTotalPrice);
+  const orderItems = useSelector(selectedOrderItems);
+  const [createOrder] = useCreateOrderMutation();
+  const [isLoading, setIdLoading] = useState(false);
 
-  const handleRemoveItem = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
+  const handleFormSubmit = async (formData) => {
+    setIdLoading(true);
 
-  const handleUpdateQuantity = (itemId, newQuantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const handleFormSubmit = (formData) => {
-    console.log("Form submitted!", formData);
-    console.log("Cart items:", cartItems);
-  };
-
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [cartItems]);
-
-  const calculateTotalPrice = () => {
-    let total = 0;
-    cartItems.forEach((item) => {
-      total += item.price * item.quantity;
-    });
-    setTotalPrice(total);
+    try {
+      await createOrder({
+        ...formData,
+        products: orderItems,
+      });
+      dispatch(resetOrder());
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIdLoading(false);
+    }
   };
 
   return (
     <div className={s.wrapperCart}>
       <div className={s.cartElement}>
         <CartForm onSubmit={handleFormSubmit} id={formId} />
-        <CartItemList
-          cartItems={cartItems}
-          handleRemoveItem={handleRemoveItem}
-          handleUpdateQuantity={handleUpdateQuantity}
-        />
+        <CartItemList />
       </div>
       <div className={s.totalPrice}>
         <p className={s.totalPriceText}>Total price: {totalPrice}</p>
@@ -76,9 +49,9 @@ const CartPage = () => {
           form={formId}
           type="submit"
           className={s.buttonSubmit}
-          onClick={handleFormSubmit}
+          disabled={isLoading}
         >
-          Submit
+          {isLoading ? <Loader /> : "Submit"}
         </button>
       </div>
     </div>

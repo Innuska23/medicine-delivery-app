@@ -1,16 +1,19 @@
-import { useForm } from "react-hook-form";
-import s from "./CartForm.module.css";
 import PropTypes from "prop-types";
+import { useForm } from "react-hook-form";
+
+import s from "./CartForm.module.css";
 
 const CartForm = ({ onSubmit, id }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const submitForm = (data) => {
-    onSubmit(data);
+  const submitForm = async (data) => {
+    await onSubmit(data);
+    reset();
   };
 
   return (

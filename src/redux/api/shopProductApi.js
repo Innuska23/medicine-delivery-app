@@ -2,16 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const shopProductApi = createApi({
   reducerPath: "shopProductApi",
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (build) => ({
     shopProductList: build.query({
-      query: () => {
+      query: ({ shopId }) => {
         return {
-          url: `card`,
+          url: `api/shops-product/${shopId}`,
         };
       },
     }),
   }),
 });
 
-export const { useLazyShopProductListQuery } = shopProductApi;
+export const { useShopProductListQuery } = shopProductApi;

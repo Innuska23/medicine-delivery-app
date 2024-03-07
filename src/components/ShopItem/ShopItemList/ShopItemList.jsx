@@ -1,29 +1,54 @@
 import PropTypes from "prop-types";
-import ShopCard from "../ShopCard/ShopCard";
-// import styles from "./ShopItemList.module.css";
+import { useDispatch } from "react-redux";
 
-const ShopItemList = ({ products }) => {
+import { useShopProductListQuery } from "../../../redux/api/shopProductApi";
+import { addOrder } from "../../../redux/reducers/orderReducer";
+import ShopCard from "../ShopCard/ShopCard";
+import Loader from "../../Loader/Loader";
+
+import s from "./ShopItemList.module.css";
+
+const ShopItemList = ({ selectedShop }) => {
+  const dispatch = useDispatch();
+  const { data: products, isFetching: shopsItemListLoading } =
+    useShopProductListQuery(
+      {
+        shopId: selectedShop,
+      },
+      { skip: !selectedShop }
+    );
+
+  const handleAddToOrder = (id) => () => {
+    const product = products.find(({ _id }) => id === _id);
+    if (product) {
+      dispatch(addOrder(product));
+    }
+  };
+
   return (
     <div>
-      {products.map((product) => (
-        <ShopCard
-          key={product.id}
-          title={product.title}
-          onAddToCart={() => console.log(`Added ${product.title} to cart`)}
-        />
-      ))}
-      <div>The item should be added to the Shopping Cart</div>
+      {shopsItemListLoading ? (
+        <Loader />
+      ) : products && products.length > 0 ? (
+        products.map((product) => (
+          <ShopCard
+            key={product._id}
+            id={product._id}
+            title={product.title}
+            imageSrc={product.imgSrc}
+            price={product.price}
+            onAddToCart={handleAddToOrder(product._id)}
+          />
+        ))
+      ) : (
+        <p className={s.shopItemListText}>Medicines will appear soon</p>
+      )}
     </div>
   );
 };
 
 ShopItemList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  selectedShop: PropTypes.string.isRequired,
 };
 
 export default ShopItemList;

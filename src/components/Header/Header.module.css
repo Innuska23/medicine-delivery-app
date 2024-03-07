@@ -37,3 +37,11 @@
 .headerLink {
   text-decoration: none;
 }
+
+.headerTitle {
+  color: var(--color-white);
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px #f8f8f8;
+  text-shadow: 0px 2px 4px blue;
+}

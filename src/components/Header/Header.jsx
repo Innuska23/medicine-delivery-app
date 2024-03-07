@@ -1,20 +1,16 @@
 import { NavLink } from "react-router-dom";
+
 import s from "./Header.module.css";
 
 const Header = () => {
-  const isActive = (match) => {
-    return match !== null;
-  };
-
   return (
     <header className={s.header}>
       <nav className={s.headerNav}>
         <ul className={s.headerList}>
           <li className={s.headerItem}>
             <NavLink
-              to="/shop"
+              to="/medicine-delivery-app/shop"
               className={({ isActive }) => (isActive ? s.active : "")}
-              isActive={isActive}
             >
               <span>Shop</span>
             </NavLink>
@@ -24,14 +20,14 @@ const Header = () => {
           </li>
           <li className={s.headerItem}>
             <NavLink
-              to="/cart"
+              to="/medicine-delivery-app/cart"
               className={({ isActive }) => (isActive ? s.active : "")}
-              isActive={isActive}
             >
               <span>Shopping Cart</span>
             </NavLink>
           </li>
         </ul>
+        <p className={s.headerTitle}>Medicine Delivery App</p>
       </nav>
     </header>
   );

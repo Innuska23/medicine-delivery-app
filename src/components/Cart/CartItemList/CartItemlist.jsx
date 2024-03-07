@@ -1,55 +1,49 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../CartItem";
-import defaultimg from "../../../assets/default.jpg";
 import s from "./CarItemList.module.css";
+import { selectedOrderItems } from "../../../redux/selectors/orderActions";
+import {
+  removeOrder,
+  updateQuantity,
+} from "../../../redux/reducers/orderReducer";
+import { NavLink } from "react-router-dom";
 
 const CartItemList = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-    {
-      id: 2,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-    {
-      id: 3,
-      price: 10,
-      quantity: 8,
-      name: "Pen",
-      imageUrl: defaultimg,
-    },
-  ]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectedOrderItems);
 
   const handleRemoveItem = (itemId) => {
-    setCartItems(cartItems.filter((item) => item.id !== itemId));
+    dispatch(removeOrder(itemId));
   };
 
   const handleUpdateQuantity = (itemId, newQuantity) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: newQuantity } : item
-      )
+    dispatch(
+      updateQuantity({
+        id: itemId,
+        quantity: newQuantity,
+      })
     );
   };
 
   return (
     <div className={s.wrapper}>
-      {cartItems.map((item) => (
+      {cartItems?.map((item) => (
         <CartItem
-          key={item.id}
+          key={item._id}
           item={item}
           handleRemoveItem={handleRemoveItem}
           handleUpdateQuantity={handleUpdateQuantity}
         />
       ))}
+      {cartItems.length === 0 && (
+        <p>
+          {" "}
+          Choose medicine in{" "}
+          <NavLink to="/shop" className={s.link}>
+            Shop
+          </NavLink>
+        </p>
+      )}
     </div>
   );
 };
